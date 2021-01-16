@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/flick/jquery-ui.css">
+    <style type="text/css">
+        #sessionInfo th {
+            color: black;
+            border: 1px solid #000000;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        #LoadingStatus tr {
+            display: table-row;
+            vertical-align: inherit;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div style="margin:10px">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">CRM</a>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">CRM TEST</a>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">CRM TEST</a>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample4">CRM TEST</a>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                <div class="card card-body">
+                                    <div class="row" style="margin:10px">
+                                        <label class="label-info" style="padding:3px;color:aliceblue">ActiveSessionCount:</label>
+                                        <text id="acsescounttxt"></text>
+
+                                        <label class="label-primary" style="padding:3px;color:aliceblue">MaxActiveSessionCount:</label>
+                                        <text id="maxacsescounttxt"></text>
+
+                                        <label class="label-success" style="padding:3px;color:aliceblue">MaxSessionCount:</label>
+                                        <text id="maxsescounttxt"></text>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive-l">
+                                                <table id="firstTable" cellspacing=0 class="table">
+                                                    <thead style=background-color:#4d7496;color:#fff;>
+                                                        <tr>
+                                                            <th scope="col">Oid</th>
+                                                            <th scope="col">Ip</th>
+                                                            <th scope="col">SessionID</th>
+                                                            <th scope="col">StartDate</th>
+                                                            <th scope="col">LastCallDate</th>
+                                                            <th scope="col">EndDate</th>
+                                                            <th scope="col">DbDate</th>
+                                                            <th scope="col">Agent</th>
+                                                            <th scope="col">User</th>
+                                                            <th scope="col">LastTid</th>
+                                                            <th scope="col">Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="FirtSetSessionInfoList">
+                                                        <tr id="FirstLoadingStatus" style="color:red"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                <div class="card card-body">
+                                    <div class="row" style="margin:10px">
+                                        <label class="label-info" style="padding:3px;color:aliceblue">ActiveSessionCount:</label>
+                                        <text id="secondacsescounttxt"></text>
+
+                                        <label class="label-primary" style="padding:3px;color:aliceblue">MaxActiveSessionCount:</label>
+                                        <text id="secondmaxacsescounttxt"></text>
+
+                                        <label class="label-success" style="padding:3px;color:aliceblue">MaxSessionCount:</label>
+                                        <text id="secondmaxsescounttxt"></text>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive-l">
+                                                <table id="secondTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100">
+                                                    <thead style="background-color:#4d7496;color:#fff;">
+                                                        <tr>
+                                                            <th class="th-sm">Oid</th>
+                                                            <th class="th-sm">Ip</th>
+                                                            <th class="th-sm">SessionID</th>
+                                                            <th class="th-sm">StartDate</th>
+                                                            <th class="th-sm">LastCallDate</th>
+                                                            <th class="th-sm">EndDate</th>
+                                                            <th class="th-sm">DbDate</th>
+                                                            <th class="th-sm">Agent</th>
+                                                            <th class="th-sm">User</th>
+                                                            <th class="th-sm">LastTid</th>
+                                                            <th class="th-sm">Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="SecondSetSessionInfoList">
+                                                        <tr id="SecondLoadingStatus" style="color:red"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                <div class="card card-body">
+                                    <div class="row" style="margin:10px">
+                                        <label class="label-info" style="padding:3px;color:aliceblue">ActiveSessionCount:</label>
+                                        <text id="thirdacsescounttxt"></text>
+
+                                        <label class="label-primary" style="padding:3px;color:aliceblue">MaxActiveSessionCount:</label>
+                                        <text id="thirdmaxacsescounttxt"></text>
+
+                                        <label class="label-success" style="padding:3px;color:aliceblue">MaxSessionCount:</label>
+                                        <text id="thirdmaxsescounttxt"></text>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive-l">
+                                                <table id="thirdTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100">
+                                                    <thead style="background-color:#4d7496;color:#fff;">
+                                                        <tr>
+                                                            <th class="th-sm">Oid</th>
+                                                            <th class="th-sm">Ip</th>
+                                                            <th class="th-sm">SessionID</th>
+                                                            <th class="th-sm">StartDate</th>
+                                                            <th class="th-sm">LastCallDate</th>
+                                                            <th class="th-sm">EndDate</th>
+                                                            <th class="th-sm">DbDate</th>
+                                                            <th class="th-sm">Agent</th>
+                                                            <th class="th-sm">User</th>
+                                                            <th class="th-sm">LastTid</th>
+                                                            <th class="th-sm">Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="ThirdSetSessionInfoList">
+                                                        <tr id="ThirdLoadingStatus" style="color:red"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample4">
+                                <div class="card card-body">
+                                    <div class="row" style="margin:10px">
+                                        <label class="label-info" style="padding:3px;color:aliceblue">ActiveSessionCount:</label>
+                                        <text id="fourthacsescounttxt"></text>
+
+                                        <label class="label-primary" style="padding:3px;color:aliceblue">MaxActiveSessionCount:</label>
+                                        <text id="fourthmaxacsescounttxt"></text>
+
+                                        <label class="label-success" style="padding:3px;color:aliceblue">MaxSessionCount:</label>
+                                        <text id="fourthmaxsescounttxt"></text>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive-l">
+                                                <table id="FourthTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100">
+                                                    <thead style="background-color:#4d7496;color:#fff;">
+                                                        <tr>
+                                                            <th class="th-sm">Oid</th>
+                                                            <th class="th-sm">Ip</th>
+                                                            <th class="th-sm">SessionID</th>
+                                                            <th class="th-sm">StartDate</th>
+                                                            <th class="th-sm">LastCallDate</th>
+                                                            <th class="th-sm">EndDate</th>
+                                                            <th class="th-sm">DbDate</th>
+                                                            <th class="th-sm">Agent</th>
+                                                            <th class="th-sm">User</th>
+                                                            <th class="th-sm">LastTid</th>
+                                                            <th class="th-sm">Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="FourthSetSessionInfoList">
+                                                        <tr id="FourthLoadingStatus" style="color:red"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#FirstLoadingStatus").html("Loading..");
+        $.ajax({
+            headers: { "Accept": "application/json" },
+            url: 'https://crm.milleni.com.tr/SessionInfo.aspx',
+            type: "GET",
+            //headers: {
+            //    //'Authorization': 'Bearer ' + userToken,
+            //    'Access-Control-Allow-Origin': 'http://localhost:5243/index.html'
+            //},
+            success: function (result) {
+                var setData = $("#FirtSetSessionInfoList");
+                for (var i = 0; i < result.length; i++) {
+
+                    var Data = "<tr class='row_" + result[i].Oid + "'>" +
+                        "<td scope='row'>" + result[i].Oid + "</td>" +
+                        "<td scope='row'>" + result[i].Ip + "</td>" +
+                        "<td scope='row'>" + result[i].SessionID + "</td>" +
+                        "<td scope='row'>" + result[i].StartDate + "</td>" +
+                        "<td scope='row'>" + result[i].LastCallDate + "</td>" +
+                        "<td scope='row'>" + result[i].EndDate + "</td>" +
+                        "<td scope='row'>" + result[i].DbDate + "</td>" +
+                        "<td scope='row'>" + result[i].Agent + "</td>" +
+                        "<td scope='row'>" + result[i].User + "</td>" +
+                        "<td scope='row'>" + result[i].LastTid + "</td>" +
+                        "<td scope='row'>" + result[i].Duration + "</td>" +
+                        "</tr>";
+
+                    setData.append(Data);
+                    $("#acsescounttxt").text(result[0].ActiveSessionCount);
+                    $("#maxacsescounttxt").text(result[0].MaxActiveSessionCount);
+                    $("#maxsescounttxt").text(result[0].MaxSessionCount);
+                    $("#FirstLoadingStatus").html(" ");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+
+        $("#SecondLoadingStatus").html("Loading..");
+        $.ajax({
+            headers: { "Accept": "application/json" },
+            url: 'http://crm.milleni.com.tr:6161/SessionInfo.aspx',
+            type: "GET",
+            //headers: {
+            //    //'Authorization': 'Bearer ' + userToken,
+            //    'Access-Control-Allow-Origin': 'http://localhost:5243/index.html'
+            //},
+            success: function (result) {
+                var setData = $("#SecondSetSessionInfoList");
+                for (var i = 0; i < result.length; i++) {
+                    var Data = "<tr class='row_" + result[i].Oid + "'>" +
+                        "<td scope='row'>" + result[i].Oid + "</td>" +
+                        "<td scope='row'>" + result[i].Ip + "</td>" +
+                        "<td scope='row'>" + result[i].SessionID + "</td>" +
+                        "<td scope='row'>" + result[i].StartDate + "</td>" +
+                        "<td scope='row'>" + result[i].LastCallDate + "</td>" +
+                        "<td scope='row'>" + result[i].EndDate + "</td>" +
+                        "<td scope='row'>" + result[i].DbDate + "</td>" +
+                        "<td scope='row'>" + result[i].Agent + "</td>" +
+                        "<td scope='row'>" + result[i].User + "</td>" +
+                        "<td scope='row'>" + result[i].LastTid + "</td>" +
+                        "<td scope='row'>" + result[i].Duration + "</td>" +
+                        "</tr>";
+
+                    setData.append(Data);
+                    $("#secondacsescounttxt").text(result[0].ActiveSessionCount);
+                    $("#secondmaxacsescounttxt").text(result[0].MaxActiveSessionCount);
+                    $("#secondmaxsescounttxt").text(result[0].MaxSessionCount);
+                    $("#SecondLoadingStatus").html(" ");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+
+        $("#ThirdLoadingStatus").html("Loading..");
+        $.ajax({
+            headers: { "Accept": "application/json" },
+            url: 'http://crm.milleni.com.tr:6162/SessionInfo.aspx',
+            type: "GET",
+            //headers: {
+            //    //'Authorization': 'Bearer ' + userToken,
+            //    'Access-Control-Allow-Origin': 'http://localhost:5243/index.html'
+            //},
+            success: function (result) {
+                var setData = $("#ThirdSetSessionInfoList");
+                for (var i = 0; i < result.length; i++) {
+                    var Data = "<tr class='row_" + result[i].Oid + "'>" +
+                        "<td scope='row'>" + result[i].Oid + "</td>" +
+                        "<td scope='row'>" + result[i].Ip + "</td>" +
+                        "<td scope='row'>" + result[i].SessionID + "</td>" +
+                        "<td scope='row'>" + result[i].StartDate + "</td>" +
+                        "<td scope='row'>" + result[i].LastCallDate + "</td>" +
+                        "<td scope='row'>" + result[i].EndDate + "</td>" +
+                        "<td scope='row'>" + result[i].DbDate + "</td>" +
+                        "<td scope='row'>" + result[i].Agent + "</td>" +
+                        "<td scope='row'>" + result[i].User + "</td>" +
+                        "<td scope='row'>" + result[i].LastTid + "</td>" +
+                        "<td scope='row'>" + result[i].Duration + "</td>" +
+                        "</tr>";
+
+                    setData.append(Data);
+                    $("#thirdacsescounttxt").text(result[0].ActiveSessionCount);
+                    $("#thirdmaxacsescounttxt").text(result[0].MaxActiveSessionCount);
+                    $("#thirdmaxsescounttxt").text(result[0].MaxSessionCount);
+                    $("#ThirdLoadingStatus").html(" ");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+
+        $("#FourthLoadingStatus").html("Loading..");
+        $.ajax({
+            headers: { "Accept": "application/json" },
+            url: 'http://crm.milleni.com.tr:6163/SessionInfo.aspx',
+            type: "GET",
+            //headers: {
+            //    //'Authorization': 'Bearer ' + userToken,
+            //    'Access-Control-Allow-Origin': 'http://localhost:5243/index.html'
+            //},
+            success: function (result) {
+                var setData = $("#FourthSetSessionInfoList");
+                for (var i = 0; i < result.length; i++) {
+                    var Data = "<tr class='row_" + result[i].Oid + "'>" +
+                        "<td scope='row'>" + result[i].Oid + "</td>" +
+                        "<td scope='row'>" + result[i].Ip + "</td>" +
+                        "<td scope='row'>" + result[i].SessionID + "</td>" +
+                        "<td scope='row'>" + result[i].StartDate + "</td>" +
+                        "<td scope='row'>" + result[i].LastCallDate + "</td>" +
+                        "<td scope='row'>" + result[i].EndDate + "</td>" +
+                        "<td scope='row'>" + result[i].DbDate + "</td>" +
+                        "<td scope='row'>" + result[i].Agent + "</td>" +
+                        "<td scope='row'>" + result[i].User + "</td>" +
+                        "<td scope='row'>" + result[i].LastTid + "</td>" +
+                        "<td scope='row'>" + result[i].Duration + "</td>" +
+                        "</tr>";
+
+                    setData.append(Data);
+                    $("#fourthacsescounttxt").text(result[0].ActiveSessionCount);
+                    $("#fourthmaxacsescounttxt").text(result[0].MaxActiveSessionCount);
+                    $("#fourthmaxsescounttxt").text(result[0].MaxSessionCount);
+                    $("#FourthLoadingStatus").html(" ");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+</script>
